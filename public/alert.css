@@ -1,0 +1,20 @@
+.alert {
+    padding: 20px;
+    background-color: #ffffff;
+    color: rgb(233, 40, 40);
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: rgba(255, 255, 255, 0);
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: rgba(0, 0, 0, 0);
+}

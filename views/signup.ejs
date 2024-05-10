@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/alert.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>SignUp</h2>
+        <form action="/signup" method="post" onsubmit="return matchPassword()">
+            <div class="form-group">
+                <label for="name">Enter your Name :</label>
+                <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="email">Enter your Email :</label>
+                <input type="email" placeholder="Enter your Email" id="Email" for="email" required>
+                <br><br>
+                <label for="password">Enter your Password :</label>
+                <input type="password" placeholder="Enter your Password" id="password" name="password" required>
+                <br><br>
+                <label for="confirmPassword">Confirm Password :</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+            </div>
+            <button type="submit" class="submit-btn">SignUp</button>
+        </form>
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <p id="show"></p>
+        </div>
+        <p>I have an account <a href="/">Login</a></p>
+    </div>
+
+    <script>
+        function matchPassword() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                document.getElementById('show').innerHTML = "Passwords did not match";
+                return false; // Prevent form submission
+            }
+
+            // Check password length
+            if (password.length < 8 || password.length > 16) {
+                document.getElementById('show').innerHTML = "Password must be 8-16 characters long";
+                return false; // Prevent form submission
+            }
+
+            // Check password complexity
+            var regexNumber = /\d/;
+            var regexCapitalLetter = /[A-Z]/;
+            if (!regexNumber.test(password) || !regexCapitalLetter.test(password)) {
+                document.getElementById('show').innerHTML = "Password must contain at least one number and one capital letter";
+                return false; // Prevent form submission
+            }
+
+            // Password is valid
+            document.getElementById('show').innerHTML = "Password created successfully";
+            document.getElementById('show').style.color = "rgb(22,170,109)";
+            return true; // Allow form submission
+        }
+    </script>
+</body>
+
+</html>
