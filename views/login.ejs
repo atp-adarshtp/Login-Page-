@@ -1,30 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/alert.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
-    <div class="form-container">
-        <h2>Login</h2>
-        <form action="/login" method="post">
-            <!-- <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
-            </div> -->
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" placeholder="Enter your Email" required autocomplete="on">
-            </div>
-            <div class="form-group">
-                <label for="password">password:</label>
-                <input type="password" name="password" id="password" placeholder="Enter your Password" required>
-            </div>
-            <button type="submit" class="submit-btn">Login</button>
-        </form>
-        <p>Don't have an account? <a href="/signup">signup</a></p>
-    </div>
+  <div class="form-container">
+    <h2>Login</h2>
+    <form action="/login" method="post">
+      <div class="form-group">
+        <label for="email">Enter Your Email :</label>
+        <div style="position: relative;">
+          <input type="email" placeholder="Enter Your Email" id="email" class="" name="email" onkeyup="validateEmail()"
+            required>
+          <p id="icon-Email-error"
+            style="position: absolute; right: 10px; top: 15%; transform: translateY(-50%);color: brown;"></p>
+          <Samp id="email-error"></Samp>
+        </div><br>
+        <label for="password">Enter Your Password:</label>
+        <div style="position: relative;">
+          <input type="password" placeholder="Enter Your Password" id="password" name="password"
+            onkeyup="validatePassword()" required>
+          <p id="icon-Eye-error" onclick="showHide();"
+            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);color: brown;"></p>
+          <span id="password-error"></span>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/signup">Signup</a></p>
+  </div>
+
+
+
+
+  <script>
+
+    // Email Validation
+
+    var emailField = document.getElementById("email");
+    var emailError = document.getElementById("email-error");
+    var iconEmailError = document.getElementById("icon-Email-error");
+
+    function validateEmail() {
+      if (!emailField.value.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+        emailError.innerHTML = "Please enter a valid email";
+        emailField.style.borderBottomColor = "red";
+        emailError.style.color = "red";
+        emailError.style.top = "120%";
+        iconEmailError.innerHTML = '<i class="fa-solid fa-user"></i>';
+        iconEmailError.style.top = "10%";
+        iconEmailError.style.color = "red";
+        return false;
+      }
+
+      emailError.innerHTML = "";
+      emailField.style.borderBottomColor = "black";
+      emailError.style.top = "120%";
+      iconEmailError.innerHTML = '<i class="fa-solid fa-user"></i>';
+      iconEmailError.style.color = "black";
+      return true;
+    }
+
+    //---------- Email Validation ---------- //
+
+
+
+
+
+
+
+    // Password Validation
+
+    var passwordField = document.getElementById("password");
+    var passwordError = document.getElementById("password-error");
+    var iconEyeError = document.getElementById("icon-Eye-error")
+
+    function validatePassword() {
+      var password = passwordField.value;
+
+      // Check password length
+      if (password.length < 8) {
+        passwordError.innerHTML = "Password must be at least 8 characters long";
+        passwordField.style.borderBottomColor = "red";
+        passwordError.style.color = "red";
+        iconEyeError.innerHTML = '<i class="fa-sharp fa-solid fa-eye-slash"></i>';
+        iconEyeError.style.top = "5%"
+        passwordError.style.top = "120%";
+        return false;
+      }
+
+      // Check password complexity
+      var hasUpperCase = /[A-Z]/.test(password);
+      var hasLowerCase = /[a-z]/.test(password);
+      var hasNumbers = /\d/.test(password);
+      var hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+      if (!(hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChars)) {
+        passwordError.innerHTML = "Password must be at least 6 characters long.";
+        passwordField.style.borderBottomColor = "red";
+        passwordError.style.color = "red";
+        passwordError.style.top = "120%";
+        return false;
+      }
+
+      // Password is valid
+      passwordError.innerHTML = "";
+      passwordField.style.borderBottomColor = "black";
+      iconEyeError.style.color = "black"
+      iconEyeError.style.top = "15%"
+      passwordError.style.top = "120%";
+      return true;
+    }
+
+    //---------  Password Validation ----------//
+
+    //                    Eye
+
+    let passwords = document.getElementById('password');
+
+    function showHide() {
+      if (password.type === 'password') {
+        passwords.setAttribute('type', 'text');
+        iconEyeError.innerHTML = '<i class="fa-sharp fa-solid fa-eye"></i>';
+      } else {
+        passwords.setAttribute('type', 'password');
+        iconEyeError.innerHTML = '<i class="fa-sharp fa-solid fa-eye-slash"></i>';
+      }
+    }
+
+
+  </script>
+
+  </style>
 </body>
-</html>

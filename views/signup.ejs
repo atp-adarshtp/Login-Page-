@@ -2,72 +2,225 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/alert.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/alert.css">
+  <script src="../src/index.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
-    <div class="form-container">
-        <h2>SignUp</h2>
-        <form action="/signup" method="post" onsubmit="return matchPassword()">
-            <div class="form-group">
-                <label for="name">Enter your Name :</label>
-                <input type="name" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="email">Enter your Email :</label>
-                <input type="email" placeholder="Enter your Email" id="email" name="email" for="email" required>
-                <br><br>
-                <label for="password">Enter your Password :</label>
-                <input type="password" placeholder="Enter your Password" id="password" name="password" required>
-                <br><br>
-                <label for="confirmPassword">Confirm Password :</label>
-                <input type="password" id="confirmPassword" placeholder="Confirm password" required>
-            </div>
-            <button type="submit" class="submit-btn">SignUp</button>
-        </form>
-        <div class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <p id="show"></p>
+  <div class="form-container">
+    <h2>SignUp</h2>
+    <form action="/signup" method="post">
+      <div class="form-group">
+        <label for="name">Enter Your Name :</label>
+        <div style="position: relative;">
+          <input type="name" id="name" name="username" placeholder="Enter Your name" autocomplete="off"
+            onkeyup="validateName()" required>
+          <p id="Name-Icon-error"
+            style="position: absolute; right: 10px; top: 15%; transform: translateY(-50%);color: brown;"></p>
         </div>
-        <p>I have an account <a href="/">Login</a></p>
-    </div>
+        <Samp id="name-error"></Samp>
+        <br>
+        <label for="email">Enter Your Email :</label>
+        <div style="position: relative;">
+          <input type="email" placeholder="Enter Your Email" id="email" class="" name="email" onkeyup="validateEmail()"
+            required>
+          <p id="icon-Email-error"
+            style="position: absolute; right: 10px; top: 15%; transform: translateY(-50%);color: brown;"></p>
+          <Samp id="email-error"></Samp>
+        </div><br>
+        <label for="password">Enter Your Password:</label>
+        <div style="position: relative;">
+          <input type="password" placeholder="Enter Your Password" id="password" name="password"
+            onkeyup="validatePassword()" required>
+          <p id="icon-Eye-error" onclick="showHide();"
+            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);color: brown;"></p>
+          <span id="password-error"></span>
+        </div><br>
+        <label for="confirmPassword">Confirm Password :</label>
+        <div style="position: relative;">
+          <input type="Password" id="confirmPsw" name="confirmPsw" placeholder="Confirm password" class="input"
+            onkeyup="ConfirmPsw()" required>
+          <p id="confirmIconEye" onclick="conShowHide();"
+            style="position: absolute; right: 10px; top: 15%; transform: translateY(-50%);color: brown;"></p>
+        </div>
+        <span id="confirm-error"></span>
+      </div>
+      <button type="submit" class="submit-btn">SignUp</button>
+    </form>
+    <p>I have an account <a href="/"><b>Login</b></a></p>
+  </div>
 
-    <script>
-        function matchPassword() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
 
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                document.getElementById('show').innerHTML = "Passwords did not match";
-                return false; // Prevent form submission
-            }
+  <script>
 
-            // Check password length
-            if (password.length < 6 || password.length > 16) {
-                document.getElementById('show').innerHTML = "Password must be 8-16 characters long";
-                return false; // Prevent form submission
-            }
+    // name validation
 
-            // Check password complexity
-            var regexNumber = /\d/;
-            var regexCapitalLetter = /[A-Z]/;
-            if (!regexNumber.test(password) || !regexCapitalLetter.test(password)) {
-                document.getElementById('show').innerHTML = "Password must contain at least one number and one capital letter";
-                return false; // Prevent form submission
-            }
+    var nameField = document.getElementById("name");
+    var nameError = document.getElementById("name-error");
+    var NameIconError = document.getElementById("Name-Icon-error");
 
-            // Password is valid
-            document.getElementById('show').innerHTML = "Password created successfully";
-            document.getElementById('show').style.color = "rgb(22,170,109)";
-            return true; // Allow form submission
-        }
-    </script>
+    function validateName() {
+      var nameValue = nameField.value.trim(); // Trim removes any leading/trailing white spaces
+
+      if (nameValue.length < 2) {
+        nameError.innerHTML = "Name must be at least 2 characters long.";
+        nameField.style.borderBottomColor = "red";
+        NameIconError.style.color = "red";
+        NameIconError.innerHTML = '<i class="fa-sharp fa-solid fa-circle-xmark"></i>';
+        nameError.style.color = "red";
+        nameError.style.top = "120%";
+        return false;
+      }
+
+      nameError.innerHTML = ""; // Clear error message if name is valid
+      nameField.style.borderBottomColor = "green";
+      NameIconError.innerHTML = '<i class="fa-solid fa-check"></i>';
+      NameIconError.style.color = "green";
+      nameError.style.top = "120%";
+      return true;
+    }
+
+
+    // Email Validation
+
+    var emailField = document.getElementById("email");
+    var emailError = document.getElementById("email-error");
+    var iconEmailError = document.getElementById("icon-Email-error");
+
+    function validateEmail() {
+      if (!emailField.value.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+        emailError.innerHTML = "Please enter a valid email";
+        emailField.style.borderBottomColor = "red";
+        emailError.style.color = "red";
+        emailError.style.top = "120%";
+        iconEmailError.innerHTML = '<i class="fa-solid fa-envelope"></i>';
+        iconEmailError.style.top = "10%";
+        iconEmailError.style.color = "red";
+        return false;
+      }
+
+      emailError.innerHTML = "";
+      emailField.style.borderBottomColor = "green";
+      emailError.style.top = "120%";
+      iconEmailError.innerHTML = '<i class="fa-solid fa-check"></i>';
+      iconEmailError.style.color = "green";
+      return true;
+    }
+
+    //---------- Email Validation ---------- //
+
+
+
+
+
+
+
+    // Password Validation
+
+    var passwordField = document.getElementById("password");
+    var passwordError = document.getElementById("password-error");
+    var iconEyeError = document.getElementById("icon-Eye-error")
+
+    function validatePassword() {
+      var password = passwordField.value;
+
+      // Check password length
+      if (password.length < 8) {
+        passwordError.innerHTML = "Password must be at least 8 characters long";
+        passwordField.style.borderBottomColor = "red";
+        passwordError.style.color = "red";
+        iconEyeError.innerHTML = '<i class="fa-sharp fa-solid fa-eye-slash"></i>';
+        iconEyeError.style.color = "red"
+        iconEyeError.style.top = "5%"
+        passwordError.style.top = "120%";
+        return false;
+      }
+
+      // Check password complexity
+      var hasUpperCase = /[A-Z]/.test(password);
+      var hasLowerCase = /[a-z]/.test(password);
+      var hasNumbers = /\d/.test(password);
+      var hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+      if (!(hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChars)) {
+        passwordError.innerHTML = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+        passwordField.style.borderBottomColor = "red";
+        passwordError.style.color = "red";
+        iconEyeError.innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+        iconEyeError.style.color = "red"
+        iconEyeError.style.top = "5%"
+        passwordError.style.top = "120%";
+        return false;
+      }
+
+      // Password is valid
+      passwordError.innerHTML = "";
+      passwordField.style.borderBottomColor = "green";
+      iconEyeError.style.color = "green"
+      iconEyeError.style.top = "15%"
+      passwordError.style.top = "120%";
+      return true;
+    }
+
+    //---------  Password Validation ----------//
+
+
+    //  Confirm Password Validation
+    var passwordField = document.getElementById("password");
+    var confirmField = document.getElementById("confirmPsw");
+    var confirmError = document.getElementById("confirm-error");
+    var confirmIconEye = document.getElementById("confirmIconEye");
+
+    function ConfirmPsw() {
+      var password = passwordField.value;
+      var confirmPsw = confirmField.value;
+
+      if (password.length > 7 && password === confirmPsw) {
+        confirmError.innerHTML = "";
+        confirmError.style.top = "15%";
+        confirmIconEye.style.color = "green"
+        confirmField.style.borderBottomColor = "green";
+        confirmIconEye.innerHTML = '<i class="fa-solid fa-check"></i>';
+        return true;
+      }
+      else {
+        confirmError.innerHTML = "Passwords did not match or length is less than 8 characters";
+        confirmError.style.color = "red";
+        confirmError.style.top = "15%";
+        confirmIconEye.style.color = "red"
+        confirmField.style.borderBottomColor = "red";
+        confirmIconEye.innerHTML = '';
+        return false;
+      }
+
+    }
+
+    //------- password Confirm -------//
+
+    //                    Eye
+
+    let passwords = document.getElementById('password');
+
+    function showHide() {
+      if (password.type === 'password') {
+        passwords.setAttribute('type', 'text');
+        iconEyeError.innerHTML = '<i class="fa-sharp fa-solid fa-eye"></i>';
+      } else {
+        passwords.setAttribute('type', 'password');
+        iconEyeError.innerHTML = '<i class="fa-sharp fa-solid fa-eye-slash"></i>';
+      }
+    }
+
+
+  </script>
+  </style>
 </body>
-
-</html>

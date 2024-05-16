@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const connect = mongoose.connect("mongodb://localhost:27017/Login-tut");
 
 // check database connected ro not
-connect.then(()=>{
+connect.then(() => {
     console.log("Database connected Successfully");
 });
-connect.catch(()=>{
+connect.catch(() => {
     console.log("Database cannot be connected");
 });
 
@@ -26,6 +26,6 @@ const LoginSchema = new mongoose.Schema({
 });
 
 // Collection part
-const collection = new mongoose.model("users",LoginSchema);
+const collection = new mongoose.model("users", LoginSchema);
 
 module.exports = collection;

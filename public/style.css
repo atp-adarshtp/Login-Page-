@@ -1,47 +1,58 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    /* background: linear-gradient(to right, #02062cb4, #23A4D7); */
+    /* background-color: #1D89BF; */
+    background-color: #333333;
+    /* background-image: url("paper.gif"); */
 }
 
-h2{
+h2 {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.form-container{
-width: 300px;
-margin: 0 auto;
-padding: 20px;
-border: 1px solid #3f859685;
-border-radius: 5px;
+.form-container {
+    width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #3f85965b;
+    border-radius: 5px;
+    background-color: #ffffffd5;
+    box-shadow: 0px 0px 20px 1px #00000081;;
 }
 
 .form-group {
     margin-bottom: 15px;
 }
 
-.form-group lebel {
+.form-group label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.form-group input{
+.form-group input {
     width: 100%;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    outline-color: #1d89bf88;
 }
-.submit-btn{
+
+.input{
+    color: #1D89BF;
+}
+.submit-btn {
     display: block;
     width: 100%;
     padding: 10px;
@@ -52,10 +63,17 @@ border-radius: 5px;
     cursor: pointer;
 }
 
-.submite-btn:hover{
-    background-color: #494949;
+.submit-btn:hover {
+    background-color: #666; /* Change to a different color on hover */
 }
 
-p{
+p {
     margin-top: 15px;
+}
+
+a:link {
+    text-decoration: none;
+  }
+a {
+    color: #494949;
 }
