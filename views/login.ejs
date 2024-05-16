@@ -14,30 +14,32 @@
 </head>
 
 <body>
-  <div class="form-container">
-    <h2>Login</h2>
-    <form action="/login" method="post">
-      <div class="form-group">
-        <label for="email">Enter Your Email :</label>
-        <div style="position: relative;">
-          <input type="email" placeholder="Enter Your Email" id="email" class="" name="email" onkeyup="validateEmail()"
-            required>
-          <p id="icon-Email-error"
-            style="position: absolute; right: 10px; top: 15%; transform: translateY(-50%);color: brown;"></p>
-          <Samp id="email-error"></Samp>
-        </div><br>
-        <label for="password">Enter Your Password:</label>
-        <div style="position: relative;">
-          <input type="password" placeholder="Enter Your Password" id="password" name="password"
-            onkeyup="validatePassword()" required>
-          <p id="icon-Eye-error" onclick="showHide();"
-            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);color: brown;"></p>
-          <span id="password-error"></span>
+  <div class="login-form-group">
+    <div class="form-container">
+      <h2>Login</h2>
+      <form action="/login" method="post">
+        <div class="form-group">
+          <label for="email">Enter Your Email :</label>
+          <div style="position: relative;">
+            <input type="email" placeholder="Enter Your Email" id="email" class="" name="email"
+              onkeyup="validateEmail()" required>
+            <p id="icon-Email-error"
+              style="position: absolute; right: 10px; top: 15%; transform: translateY(-50%);color: brown;"></p>
+            <Samp id="email-error"></Samp>
+          </div><br>
+          <label for="password">Enter Your Password:</label>
+          <div style="position: relative;">
+            <input type="password" placeholder="Enter Your Password" id="password" name="password"
+              onkeyup="validatePassword()" required>
+            <p id="icon-Eye-error" onclick="showHide();"
+              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);color: brown;"></p>
+            <span id="password-error"></span>
+          </div>
         </div>
-      </div>
-      <button type="submit" class="submit-btn">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/signup">Signup</a></p>
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+      <p>Don't have an account? <a href="/signup">Signup</a></p>
+    </div>
   </div>
 
 
